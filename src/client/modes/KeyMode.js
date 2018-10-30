@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'semantic-ui-react';
 
 export default class KeyMode extends Component {
   constructor(props) {
@@ -10,8 +9,11 @@ export default class KeyMode extends Component {
     this.time = 0;
     this.state={
       situations: [],
-      show: -1,
+      show: 0,
+      finish: false,
       hide: true,
+      question: false,
+      situation: false,
       maxRepeat: config.repeatingsPerDesign*urls.length,
       userData: [
         {
@@ -24,26 +26,31 @@ export default class KeyMode extends Component {
 
   componentDidMount() {
     this.preload();
+    window.addEventListener('keydown', this.spaceEvent.bind(this));
   }
 
-  saveData(userData) {
-    const { subject, project } = userData[0];
-    axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData)).catch((error) => console.log(error));
-  }
-
-  clickButton(e) {
-    const { show, userData, situations } = this.state;
-    userData.push({
-      time: performance.now()-this.time,
-      clicked: e.target.id,
-      situation: situations[show].url
-    });
-    this.setState({
-      userData,
-      hide: true,
-      finish: show>=situations.length-1
-    });
-    if(show>=situations.length-1) this.saveData(userData);
+  spaceEvent(e) {
+    const { show, hide, maxRepeat, finish, question, situation, userData, situations } = this.state;
+    if(question) {
+      userData.push({
+        time: this.time,
+        clicked: e.key,
+        situation: situations[show].url
+      });
+      this.setState({userData});
+    }
+    if((!question && e.key===" ")|| question) {
+      if(!finish&&!question&&hide) this.time = performance.now();
+      if(situation) this.time = performance.now()-this.time;
+      this.setState({
+        show: question?show+1:show,
+        finish: (question && show>=maxRepeat-1)||finish,
+        hide: !finish&&!hide&&question?true:false,
+        question: !finish&&!question&&!hide?true:false,
+        situation: !finish&&!question&&hide
+      });
+      if ((question && show>=maxRepeat-1)||finish) this.saveData(userData);
+    }
   }
 
   saveData(userData) {
@@ -51,15 +58,6 @@ export default class KeyMode extends Component {
     axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData))
     .catch(function (error) {
       console.log(error);
-    });
-  }
-
-  clickReady(e) {
-    const { show, hide, situations } = this.state;
-    this.time = performance.now();
-    this.setState({
-      show: show+1,
-      hide: false,
     });
   }
 
@@ -75,16 +73,6 @@ export default class KeyMode extends Component {
     return arr;
   }
 
-  getButtonBar() {
-    const { actions } = this.props.projectData.config;
-    let buttonBar = [];
-
-    for(let action of actions) buttonBar.push(
-      <Button key={Math.random()} onClick={this.clickButton.bind(this)} id={action}>{action}</Button>
-    );
-    return buttonBar;
-  }
-
   preload() {
     const { urls, config } = this.props.projectData;
 
@@ -96,7 +84,6 @@ export default class KeyMode extends Component {
             url: urls[i],
             payload: (
               <img
-                key={Math.random()}
                 alt="reload"
                 style={styles.image}
                 src={"http://localhost:3001/static/"+this.props.project+"/img/"+urls[i]}
@@ -106,23 +93,25 @@ export default class KeyMode extends Component {
         );
       }
     }
-    this.setState({ situations: this.fisherYates(this.fisherYates(situations))});
+    this.setState({ situations: this.fisherYates(this.fisherYates(situations)) });
   }
 
   render() {
-    const { show, situations, finish, hide } = this.state;
+    const { show, situations, finish, hide, question, situation } = this.state;
     return (
         <div>
-          {!finish && !hide &&
-            [
-              situations[show].payload,
-              <div key={Math.random()} style={styles.buttonBar}>
-                {this.getButtonBar()}
-              </div>
-            ]
-          }
+          {situation && situations[show].payload}
           {!finish && hide &&
-            <Button size="huge" onClick={this.clickReady.bind(this)} style={styles.question}>Ready?</Button>
+            <p style={styles.question}>Ready?</p>
+          }
+          {question &&
+            <div>
+              <p style={styles.question}>Which would be the next action?</p>
+              <br />
+              <p style={styles.text}>
+                Press a key.
+              </p>
+            </div>
           }
           {finish &&
             <p style={styles.thanks}>Thank you for your participation.</p>
@@ -136,8 +125,8 @@ const styles = {
   text: {
     fontSize: 22
   },
-  buttonBar: {
-    textAlign: "center"
+  question: {
+    fontSize: 26
   },
   thanks: {
     fontSize: 35,
