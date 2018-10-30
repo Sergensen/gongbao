@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from 'semantic-ui-react';
 
-export default class SpaceMode extends Component {
+export default class ClickMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData} = this.props;
@@ -116,7 +116,7 @@ export default class SpaceMode extends Component {
           {!finish && !hide &&
             [
               situations[show].payload,
-              <div style={styles.buttonBar}>
+              <div key={Math.random()} style={styles.buttonBar}>
                 {this.getButtonBar()}
               </div>
             ]

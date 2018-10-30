@@ -1,3 +1,10 @@
 {
-  "repeatingsPerDesign": 2
+  "repeatingsPerDesign": 1,
+  "actions": [
+    "accelerate",
+    "decelerate",
+    "change lanes",
+    "test123",
+    "test234"
+  ]
 }
