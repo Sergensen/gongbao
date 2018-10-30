@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button } from 'semantic-ui-react';
 
 export default class SpaceMode extends Component {
   constructor(props) {
@@ -9,10 +10,8 @@ export default class SpaceMode extends Component {
     this.time = 0;
     this.state={
       situations: [],
-      show: 0,
-      finish: false,
+      show: -1,
       hide: true,
-      situation: false,
       maxRepeat: config.repeatingsPerDesign*urls.length,
       userData: [
         {
@@ -25,7 +24,6 @@ export default class SpaceMode extends Component {
 
   componentDidMount() {
     this.preload();
-    window.addEventListener('click', this.clickEvent.bind(this));
   }
 
   saveData(userData) {
@@ -33,30 +31,37 @@ export default class SpaceMode extends Component {
     axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData)).catch((error) => console.log(error));
   }
 
-  spaceEvent(e) {
-    const { show, hide, maxRepeat, finish, situation, userData, situations } = this.state;
-    if(e.key==="n"||e.key==="y") {
-      userData.push({
-        time: this.time,
-        clicked: e.key,
-        situation: situations[show].url
-      });
-      this.setState({userData});
-    }
-    if(e.key===" "|| e.key==="n"||e.key==="y") {
-      if(!finish&&hide) this.time = performance.now();
-      if(situation) this.time = performance.now()-this.time;
-      this.setState({
-        show: show+1,
-        finish: show>=maxRepeat-1||finish,
-        hide: !finish&&!hide?true:false,
-        question: !finish&&!hide?true:false,
-        situation: !finish&&hide
-      });
-      if (show>=maxRepeat-1||finish) this.saveData(userData);
-    }
+  clickButton(e) {
+    const { show, userData, situations } = this.state;
+    userData.push({
+      time: performance.now()-this.time,
+      clicked: e.target.id,
+      situation: situations[show].url
+    });
+    this.setState({
+      userData,
+      hide: true,
+      finish: show>=situations.length-1
+    });
+    if(show>=situations.length-1) this.saveData(userData);
   }
 
+  saveData(userData) {
+    const { subject, project } = userData[0];
+    axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData))
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  clickReady(e) {
+    const { show, hide, situations } = this.state;
+    this.time = performance.now();
+    this.setState({
+      show: show+1,
+      hide: false,
+    });
+  }
 
   fisherYates(arr) {
     let curIndex = arr.length, tempVal, randIndex;
@@ -70,6 +75,16 @@ export default class SpaceMode extends Component {
     return arr;
   }
 
+  getButtonBar() {
+    const { actions } = this.props.projectData.config;
+    let buttonBar = [];
+
+    for(let action of actions) buttonBar.push(
+      <Button key={Math.random()} onClick={this.clickButton.bind(this)} id={action}>{action}</Button>
+    );
+    return buttonBar;
+  }
+
   preload() {
     const { urls, config } = this.props.projectData;
 
@@ -81,6 +96,7 @@ export default class SpaceMode extends Component {
             url: urls[i],
             payload: (
               <img
+                key={Math.random()}
                 alt="reload"
                 style={styles.image}
                 src={"http://localhost:3001/static/"+this.props.project+"/img/"+urls[i]}
@@ -90,16 +106,23 @@ export default class SpaceMode extends Component {
         );
       }
     }
-    this.setState({ situations: this.fisherYates(this.fisherYates(situations)) });
+    this.setState({ situations: this.fisherYates(this.fisherYates(situations))});
   }
 
   render() {
-    const { show, situations, finish, hide, situation } = this.state;
+    const { show, situations, finish, hide } = this.state;
     return (
         <div>
-          {situation && situations[show].payload}
+          {!finish && !hide &&
+            [
+              situations[show].payload,
+              <div style={styles.buttonBar}>
+                {this.getButtonBar()}
+              </div>
+            ]
+          }
           {!finish && hide &&
-            <p style={styles.question}>Ready?</p>
+            <Button size="huge" onClick={this.clickReady.bind(this)} style={styles.question}>Ready?</Button>
           }
           {finish &&
             <p style={styles.thanks}>Thank you for your participation.</p>
@@ -112,6 +135,9 @@ export default class SpaceMode extends Component {
 const styles = {
   text: {
     fontSize: 22
+  },
+  buttonBar: {
+    textAlign: "center"
   },
   thanks: {
     fontSize: 35,

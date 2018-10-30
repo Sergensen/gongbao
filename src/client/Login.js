@@ -48,7 +48,7 @@ export default class Login extends Component {
           <Divider />
           <div style={styles.container}>
             <Form>
-              <Header size="huge" style={{color: "white"}}>Login</Header>
+              <Header size="huge" style={{color: "white"}}>Enter experiment</Header>
               <Form.Field>
                 <label>Subject ID</label>
                 <Input onKeyUp={this.handleChange.bind(this)} id="id" placeholder='Subject ID' />
