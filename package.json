@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.5"
+    "react-scripts": "2.0.5",
+    "semantic-ui-react": "^0.83.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently 'npm run client' 'nodemon server.js'",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "client": "react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -21,5 +27,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
+  },
+  "proxy": "http://localhost:3001"
 }
