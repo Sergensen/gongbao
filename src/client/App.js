@@ -38,7 +38,7 @@ class App extends Component {
     return projectLoaded?
       <Application mode={mode} projectData={projectData} id={id} project={project} />
     :
-      <Login handleSelection={this.handleSelection.bind(this)} error={error} setProject={this.setProject.bind(this)} />
+      <Login mode={mode} handleSelection={this.handleSelection.bind(this)} error={error} setProject={this.setProject.bind(this)} />
     ;
   }
 }

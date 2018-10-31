@@ -133,7 +133,7 @@ export default class ClickMode extends Component {
             ]
           }
           {!finish && hide &&
-            <Button size="huge" style={styles.thanks}>Ready?</Button>
+            <Button size="huge" style={styles.ready}>Ready?</Button>
           }
           {finish &&
             <p style={styles.thanks}>Thank you for your participation.</p>
@@ -148,7 +148,17 @@ const styles = {
     fontSize: 22
   },
   buttonBar: {
+    position: "absolute",
+    bottom: 5,
+    width: "100%",
+    left: 0,
     textAlign: "center"
+  },
+  ready: {
+    position: "absolute",
+    bottom: 5,
+    left: 0,
+    width: "100%"
   },
   thanks: {
     fontSize: 35,

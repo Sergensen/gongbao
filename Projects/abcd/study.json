@@ -1,9 +1,9 @@
 {
-  "repeatingsPerDesign": 2,
+  "repeatingsPerDesign": 1,
   "actions": [
     {"name": "accelerate", "key": "d"},
     {"name": "decelerate", "key": "e"},
-    {"name": "change lanes", "key": "e"},
+    {"name": "change lanes", "key": "f"},
     {"name": "test123", "key": "i"}
   ]
 }

@@ -9,7 +9,6 @@ export default class Login extends Component {
     this.state={
       id: "",
       project: "",
-      mode: ""
     }
   }
 
@@ -59,13 +58,17 @@ export default class Login extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Experiment mode</label>
-                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "Spacemode", value:"spacemode"},{text: "Keymode", value:"keymode"},{text: "ClickButtonmode", value:"clickbuttonmode"},{text: "KeyButtonmode", value:"keybuttonmode"}]} />
+                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "Spacemode", value:"spacemode"},{text: "KeySpacemode", value:"keymode"},{text: "Clickmode", value:"clickbuttonmode"},{text: "KeyButtonmode", value:"keybuttonmode"}]} />
               </Form.Field>
-              <Button onClick={this.loadProject.bind(this)}>Start</Button>
-              {this.props.error && <Message color="red"
-                header='Action Forbidden'
-                content={this.props.error}
-              />}
+              <Button disabled={this.props.mode===""} onClick={this.loadProject.bind(this)}>Start</Button>
+              {
+                this.props.error &&
+                <Message
+                  color="red"
+                  header='Action Forbidden'
+                  content={this.props.error}
+                />
+              }
             </Form>
           </div>
           <Divider />

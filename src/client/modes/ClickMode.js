@@ -80,7 +80,7 @@ export default class ClickMode extends Component {
     let buttonBar = [];
 
     for(let action of actions) buttonBar.push(
-      <Button key={Math.random()} onClick={this.clickButton.bind(this)} id={action.name}>{action.name}</Button>
+      <Button size="huge" key={Math.random()} onClick={this.clickButton.bind(this)} id={action.name}>{action.name}</Button>
     );
     return buttonBar;
   }
@@ -136,7 +136,17 @@ const styles = {
   text: {
     fontSize: 22
   },
+  question: {
+    position: "absolute",
+    bottom: 5,
+    left: 0,
+    width: "100%"
+  },
   buttonBar: {
+    position: "absolute",
+    bottom: 5,
+    width: "100%",
+    left: 0,
     textAlign: "center"
   },
   thanks: {
