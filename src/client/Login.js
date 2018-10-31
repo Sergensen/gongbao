@@ -59,7 +59,7 @@ export default class Login extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Experiment mode</label>
-                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "Spacemode", value:"spacemode"},{text: "Keymode", value:"keymode"},{text: "Clickmode", value:"clickmode"}]} />
+                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "Spacemode", value:"spacemode"},{text: "Keymode", value:"keymode"},{text: "ClickButtonmode", value:"clickbuttonmode"},{text: "KeyButtonmode", value:"keybuttonmode"}]} />
               </Form.Field>
               <Button onClick={this.loadProject.bind(this)}>Start</Button>
               {this.props.error && <Message color="red"

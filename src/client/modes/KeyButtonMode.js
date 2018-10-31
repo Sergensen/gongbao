@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'semantic-ui-react';
+import { Button, Header } from 'semantic-ui-react';
 
 export default class ClickMode extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export default class ClickMode extends Component {
       show: -1,
       hide: true,
       maxRepeat: config.repeatingsPerDesign*urls.length,
+      actions: config.actions,
       userData: [
         {
           subject: id,
@@ -20,10 +21,12 @@ export default class ClickMode extends Component {
         }
       ]
     }
+    this.spaceReady=this.spaceReady.bind(this);
   }
 
   componentDidMount() {
     this.preload();
+    window.addEventListener("keydown", this.spaceReady);
   }
 
   saveData(userData) {
@@ -31,19 +34,23 @@ export default class ClickMode extends Component {
     axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData)).catch((error) => console.log(error));
   }
 
-  clickButton(e) {
-    const { show, userData, situations } = this.state;
-    userData.push({
-      time: performance.now()-this.time,
-      clicked: e.target.id,
-      situation: situations[show].url
-    });
-    this.setState({
-      userData,
-      hide: true,
-      finish: show>=situations.length-1
-    });
-    if(show>=situations.length-1) this.saveData(userData);
+  keyAction(e) {
+    const { show, userData, situations, actions } = this.state;
+    let keys = [];
+    for(let i in actions) keys.push(actions[i].key);
+    if(keys.includes(e.key)) {
+      userData.push({
+        time: performance.now()-this.time,
+        clicked: e.key,
+        situation: situations[show].url
+      });
+      this.setState({
+        userData,
+        hide: true,
+        finish: show>=situations.length-1
+      });
+      if(show>=situations.length-1) this.saveData(userData);
+    }
   }
 
   saveData(userData) {
@@ -54,13 +61,17 @@ export default class ClickMode extends Component {
     });
   }
 
-  clickReady(e) {
+  spaceReady(e) {
     const { show, hide, situations } = this.state;
-    this.time = performance.now();
-    this.setState({
-      show: show+1,
-      hide: false,
-    });
+    if(e.key===" " && hide){
+      this.time = performance.now();
+      this.setState({
+        show: show+1,
+        hide: false,
+      });
+    } else if(e.key!==" " && !hide) {
+      this.keyAction(e);
+    }
   }
 
   fisherYates(arr) {
@@ -80,7 +91,7 @@ export default class ClickMode extends Component {
     let buttonBar = [];
 
     for(let action of actions) buttonBar.push(
-      <Button key={Math.random()} onClick={this.clickButton.bind(this)} id={action.name}>{action.name}</Button>
+      <Button size="huge" key={Math.random()}>{action.key+": "+action.name}</Button>
     );
     return buttonBar;
   }
@@ -122,7 +133,7 @@ export default class ClickMode extends Component {
             ]
           }
           {!finish && hide &&
-            <Button size="huge" onClick={this.clickReady.bind(this)} style={styles.question}>Ready?</Button>
+            <Button size="huge" style={styles.thanks}>Ready?</Button>
           }
           {finish &&
             <p style={styles.thanks}>Thank you for your participation.</p>
