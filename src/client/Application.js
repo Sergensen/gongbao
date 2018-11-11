@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import Clickmode from './modes/ClickMode';
-import SpaceMode from './modes/SpaceMode';
 import KeyMode from './modes/KeyMode';
-import KeyButtonmode from './modes/KeyButtonMode';
+import SpaceMode from './modes/SpaceMode';
 
 export default class Login extends Component {
   render() {
@@ -14,12 +12,6 @@ export default class Login extends Component {
         <div style={styles.container}>
           {mode==="spacemode" &&
             <SpaceMode {...this.props} />
-          }
-          {mode==="keybuttonmode" &&
-            <KeyButtonmode {...this.props} />
-          }
-          {mode==="clickbuttonmode" &&
-            <Clickmode {...this.props} />
           }
           {mode==="keymode" &&
             <KeyMode {...this.props} />

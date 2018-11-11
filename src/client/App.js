@@ -10,7 +10,7 @@ class App extends Component {
       projectLoaded: false,
       projectData: {},
       error: "",
-      mode: ""
+      mode: "spacemode"
     }
   }
 

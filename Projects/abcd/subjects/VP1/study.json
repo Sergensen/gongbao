@@ -1,0 +1,16 @@
+{
+  "schedule": [
+    ["sit1.png", "sit2.png", "sit3.png"],
+    ["sit2.png", "sit1.png", "sit3.png"],
+    ["sit3.png", "sit2.png", "sit1.png"]
+  ],
+  "designs": [
+    "C", "A", "B"
+  ],
+  "actions": [
+    {"name": "accelerate", "key": "d"},
+    {"name": "decelerate", "key": "e"},
+    {"name": "change lanes", "key": "f"},
+    {"name": "test123", "key": "i"}
+  ]
+}

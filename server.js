@@ -18,7 +18,7 @@ app.get('/save/:id/:project/:data', function (req, res) {
     fs.mkdirSync(dir);
   }
 
-  fs.writeFile(dir+id+".json", JSON.stringify(JSON.parse(data), null, 4), (err) => {
+  fs.writeFile(dir+id+"/"+id+".json", JSON.stringify(JSON.parse(data), null, 4), (err) => {
     if (err) throw err;
     res.json({
       success: true
@@ -28,7 +28,7 @@ app.get('/save/:id/:project/:data', function (req, res) {
 
 app.get('/study/:id/:project', function (req, res) {
   const { id, project } = req.params;
-  const dir = __dirname+"/Projects/"+project+"/";
+  const dir = __dirname+"/Projects/"+project+"/subjects/"+id+"/";
   fs.readdir(dir, function(err, items) {
     if(items) {
       fs.readdir(dir+"img", function(err, items) {
@@ -38,7 +38,7 @@ app.get('/study/:id/:project', function (req, res) {
                 success: true,
                 message: "Ok!",
                 urls: items,
-                config: JSON.parse(contents)
+                config: JSON.parse(contents),
               });
           });
         } else {
@@ -51,7 +51,7 @@ app.get('/study/:id/:project', function (req, res) {
     } else {
       res.json({
         success: false,
-        message: "Project doesn't exists!",
+        message: "Project or user doesn't exists!",
       });
     }
   });

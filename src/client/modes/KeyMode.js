@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, Header } from 'semantic-ui-react';
 
 export default class KeyMode extends Component {
   constructor(props) {
@@ -9,12 +10,10 @@ export default class KeyMode extends Component {
     this.time = 0;
     this.state={
       situations: [],
-      show: 0,
-      finish: false,
+      show: -1,
       hide: true,
-      question: false,
-      situation: false,
       maxRepeat: config.repeatingsPerDesign*urls.length,
+      actions: config.actions,
       userData: [
         {
           subject: id,
@@ -22,34 +21,35 @@ export default class KeyMode extends Component {
         }
       ]
     }
+    this.spaceReady=this.spaceReady.bind(this);
   }
 
   componentDidMount() {
     this.preload();
-    window.addEventListener('keydown', this.spaceEvent.bind(this));
+    window.addEventListener("keydown", this.spaceReady);
   }
 
-  spaceEvent(e) {
-    const { show, hide, maxRepeat, finish, question, situation, userData, situations } = this.state;
-    if(question) {
+  saveData(userData) {
+    const { subject, project } = userData[0];
+    axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData)).catch((error) => console.log(error));
+  }
+
+  keyAction(e) {
+    const { show, userData, situations, actions } = this.state;
+    let keys = [];
+    for(let i in actions) keys.push(actions[i].key);
+    if(keys.includes(e.key)) {
       userData.push({
-        time: this.time,
+        time: performance.now()-this.time,
         clicked: e.key,
         situation: situations[show].url
       });
-      this.setState({userData});
-    }
-    if((!question && e.key===" ")|| question) {
-      if(!finish&&!question&&hide) this.time = performance.now();
-      if(situation) this.time = performance.now()-this.time;
       this.setState({
-        show: question?show+1:show,
-        finish: (question && show>=maxRepeat-1)||finish,
-        hide: !finish&&!hide&&question?true:false,
-        question: !finish&&!question&&!hide?true:false,
-        situation: !finish&&!question&&hide
+        userData,
+        hide: true,
+        finish: show>=situations.length-1
       });
-      if ((question && show>=maxRepeat-1)||finish) this.saveData(userData);
+      if(show>=situations.length-1) this.saveData(userData);
     }
   }
 
@@ -59,6 +59,19 @@ export default class KeyMode extends Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  spaceReady(e) {
+    const { show, hide, situations } = this.state;
+    if(e.key===" " && hide){
+      this.time = performance.now();
+      this.setState({
+        show: show+1,
+        hide: false,
+      });
+    } else if(e.key!==" " && !hide) {
+      this.keyAction(e);
+    }
   }
 
   fisherYates(arr) {
@@ -73,6 +86,16 @@ export default class KeyMode extends Component {
     return arr;
   }
 
+  getButtonBar() {
+    const { actions } = this.props.projectData.config;
+    let buttonBar = [];
+
+    for(let action of actions) buttonBar.push(
+      <Button size="huge" key={Math.random()}>{action.key+": "+action.name}</Button>
+    );
+    return buttonBar;
+  }
+
   preload() {
     const { urls, config } = this.props.projectData;
 
@@ -84,6 +107,7 @@ export default class KeyMode extends Component {
             url: urls[i],
             payload: (
               <img
+                key={Math.random()}
                 alt="reload"
                 style={styles.image}
                 src={"http://localhost:3001/static/"+this.props.project+"/img/"+urls[i]}
@@ -93,25 +117,23 @@ export default class KeyMode extends Component {
         );
       }
     }
-    this.setState({ situations: this.fisherYates(this.fisherYates(situations)) });
+    this.setState({ situations: this.fisherYates(this.fisherYates(situations))});
   }
 
   render() {
-    const { show, situations, finish, hide, question, situation } = this.state;
+    const { show, situations, finish, hide } = this.state;
     return (
         <div>
-          {situation && situations[show].payload}
-          {!finish && hide &&
-            <p style={styles.question}>Ready?</p>
+          {!finish && !hide &&
+            [
+              situations[show].payload,
+              <div key={Math.random()} style={styles.buttonBar}>
+                {this.getButtonBar()}
+              </div>
+            ]
           }
-          {question &&
-            <div>
-              <p style={styles.question}>Which would be the next action?</p>
-              <br />
-              <p style={styles.text}>
-                Press a key.
-              </p>
-            </div>
+          {!finish && hide &&
+            <Button size="huge" style={styles.ready}>Ready?</Button>
           }
           {finish &&
             <p style={styles.thanks}>Thank you for your participation.</p>
@@ -125,8 +147,18 @@ const styles = {
   text: {
     fontSize: 22
   },
-  question: {
-    fontSize: 26
+  buttonBar: {
+    position: "absolute",
+    bottom: 5,
+    width: "100%",
+    left: 0,
+    textAlign: "center"
+  },
+  ready: {
+    position: "absolute",
+    bottom: 5,
+    left: 0,
+    width: "100%"
   },
   thanks: {
     fontSize: 35,
