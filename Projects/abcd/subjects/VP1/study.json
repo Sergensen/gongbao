@@ -1,11 +1,11 @@
 {
   "schedule": [
-    ["sit1.png", "sit2.png", "sit3.png"],
-    ["sit2.png", "sit1.png", "sit3.png"],
-    ["sit3.png", "sit2.png", "sit1.png"]
+    ["d2s2.png", "d2s1.png", "d2s3.png"],
+    ["d1s1.png", "d1s3.png", "d1s2.png"],
+    ["d3s3.png", "d3s2.png", "d3s1.png"]
   ],
   "designs": [
-    "C", "A", "B"
+    "Design2", "Design1", "Design3"
   ],
   "actions": [
     {"name": "accelerate", "key": "d"},

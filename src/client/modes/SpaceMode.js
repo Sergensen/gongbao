@@ -57,7 +57,7 @@ export default class SpaceMode extends Component {
 
           const nextShow = show<situations[designs[design]].length-1?show+1:0;
           const nextDesign = show===situations[designs[design]].length-1?design+1:design;
-          const nextState = nextDesign===designs.length?4:((nextDesign===0&&nextShow===0)?3:0);
+          const nextState = nextDesign===designs.length?4:(nextShow===0?3:0);
 
           this.setState({
             userData,

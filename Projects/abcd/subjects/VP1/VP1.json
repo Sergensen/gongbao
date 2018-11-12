@@ -4,48 +4,48 @@
         "project": "abcd"
     },
     {
-        "time": 8056.700000015553,
-        "clicked": "d",
-        "situation": "sit1.png"
+        "time": 161.49999998742715,
+        "clicked": "y",
+        "situation": "d2s2.png"
     },
     {
-        "time": 10293.200000014622,
-        "clicked": "e",
-        "situation": "sit2.png"
+        "time": 166.8999999819789,
+        "clicked": "y",
+        "situation": "d2s1.png"
     },
     {
-        "time": 12319.70000002184,
-        "clicked": "f",
-        "situation": "sit3.png"
+        "time": 213.900000002468,
+        "clicked": "y",
+        "situation": "d2s3.png"
     },
     {
-        "time": 14636.600000027101,
-        "clicked": "f",
-        "situation": "sit2.png"
+        "time": 217.80000001308508,
+        "clicked": "y",
+        "situation": "d1s1.png"
     },
     {
-        "time": 17449.400000012247,
-        "clicked": "i",
-        "situation": "sit1.png"
+        "time": 188.69999999878928,
+        "clicked": "y",
+        "situation": "d1s3.png"
     },
     {
-        "time": 20575.00000001164,
-        "clicked": "f",
-        "situation": "sit3.png"
+        "time": 205.20000002579764,
+        "clicked": "y",
+        "situation": "d1s2.png"
     },
     {
-        "time": 23790.500000002794,
-        "clicked": "f",
-        "situation": "sit3.png"
+        "time": 211.90000002388842,
+        "clicked": "y",
+        "situation": "d3s3.png"
     },
     {
-        "time": 24719.60000001127,
-        "clicked": "f",
-        "situation": "sit2.png"
+        "time": 199.59999999264255,
+        "clicked": "y",
+        "situation": "d3s2.png"
     },
     {
-        "time": 25252.400000026682,
-        "clicked": "f",
-        "situation": "sit1.png"
+        "time": 195.10000001173466,
+        "clicked": "y",
+        "situation": "d3s1.png"
     }
 ]
