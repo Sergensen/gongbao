@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button } from 'semantic-ui-react';
 
-export default class SpaceMode extends Component {
+export default class SpaceKeyMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData } = this.props;
@@ -29,7 +30,6 @@ export default class SpaceMode extends Component {
   spaceEvent(e) {
     const KEYPRESSED = e.key;
     const { design, designs, show, state, situations, userData } = this.state;
-    console.log(show, design);
     switch (state) {
       case 0:
         if(KEYPRESSED===" ") {
@@ -48,7 +48,11 @@ export default class SpaceMode extends Component {
         }
         break;
       case 2:
-        if(KEYPRESSED==="y"||KEYPRESSED==="n") {
+        const actions = this.props.projectData.config.actions;
+        let allowedKeys = [];
+        for(let key in actions) allowedKeys.push(actions[key].key);
+
+        if(allowedKeys.includes(KEYPRESSED)) {
           userData.push({
             time: this.time,
             clicked: KEYPRESSED,
@@ -113,6 +117,19 @@ export default class SpaceMode extends Component {
     this.setState({ situations });
   }
 
+  getButtonBar() {
+    let buttons =[];
+    const actions = this.props.projectData.config.actions;
+    for(let key in actions) {
+      buttons.push(
+        <Button>
+          {actions[key].key+": "+actions[key].name}
+        </Button>
+      );
+    }
+    return buttons;
+  }
+
   render() {
     const { show, design, designs, situations, state } = this.state;
     switch (state) {
@@ -125,11 +142,11 @@ export default class SpaceMode extends Component {
       case 2:
         return (
           <div>
-            <p style={styles.question}>Was the situation critical?</p>
+            <p style={styles.question}>Which action do you choose?</p>
             <br />
-            <p style={styles.text}>
-              Yes (<b>y</b>), No (<b>n</b>)
-            </p>
+            {
+              this.getButtonBar()
+            }
           </div>
         );
         break;

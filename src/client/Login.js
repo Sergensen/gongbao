@@ -58,7 +58,7 @@ export default class Login extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Experiment mode</label>
-                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "SpaceMode", value:"spacemode"},{text: "KeyMode", value:"keymode"}]} />
+                <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "SpaceMode", value:"spacemode"},{text: "KeyMode", value:"keymode"},{text: "SpaceKeyMode", value:"spacekeymode"}]} />
               </Form.Field>
               <Button disabled={this.props.mode===""} onClick={this.loadProject.bind(this)}>Start</Button>
               {
@@ -81,12 +81,8 @@ export default class Login extends Component {
 const styles = {
   container: {
     width: "100%",
-    height: "75vh",
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
   },
-  button: {
-
-  }
 }
