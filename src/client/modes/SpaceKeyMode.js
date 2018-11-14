@@ -70,7 +70,8 @@ export default class SpaceKeyMode extends Component {
             state: nextState
           });
 
-          if(nextState===4) this.saveData(userData);
+          if(nextState>2) this.saveData(userData, "temp");
+          if(nextState===4) this.saveData(userData, "save");
         }
         break;
       case 3:
@@ -84,9 +85,9 @@ export default class SpaceKeyMode extends Component {
     }
   }
 
-  saveData(userData) {
+  saveData(userData, save) {
     const { subject, project } = userData[0];
-    axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData))
+    axios.get('http://localhost:3001/'+save+'/'+subject+"/"+project+"/"+JSON.stringify(userData))
     .catch(function (error) {
       console.log(error);
     });

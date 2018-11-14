@@ -29,7 +29,6 @@ export default class SpaceMode extends Component {
   spaceEvent(e) {
     const KEYPRESSED = e.key;
     const { design, designs, show, state, situations, userData } = this.state;
-    console.log(show, design);
     switch (state) {
       case 0:
         if(KEYPRESSED===" ") {
@@ -66,7 +65,8 @@ export default class SpaceMode extends Component {
             state: nextState
           });
 
-          if(nextState===4) this.saveData(userData);
+          if(nextState>2) this.saveData(userData, "temp");
+          if(nextState===4) this.saveData(userData, "save");
         }
         break;
       case 3:
@@ -80,9 +80,9 @@ export default class SpaceMode extends Component {
     }
   }
 
-  saveData(userData) {
+  saveData(userData, save) {
     const { subject, project } = userData[0];
-    axios.get('http://localhost:3001/save/'+subject+"/"+project+"/"+JSON.stringify(userData))
+    axios.get('http://localhost:3001/'+save+'/'+subject+"/"+project+"/"+JSON.stringify(userData))
     .catch(function (error) {
       console.log(error);
     });
