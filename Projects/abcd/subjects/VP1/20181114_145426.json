@@ -4,47 +4,47 @@
         "project": "abcd"
     },
     {
-        "time": 8910.999999963678,
-        "clicked": "e",
+        "time": 3064.3000000272878,
+        "clicked": "f",
         "situation": "d2s2.png"
     },
     {
-        "time": 9726.800000004005,
-        "clicked": "e",
+        "time": 1204.0999999735504,
+        "clicked": "i",
         "situation": "d2s1.png"
     },
     {
-        "time": 9982.299999974202,
-        "clicked": "e",
+        "time": 1320.899999991525,
+        "clicked": "d",
         "situation": "d2s3.png"
     },
     {
-        "time": 10202.09999999497,
-        "clicked": "e",
+        "time": 1557.0000000298023,
+        "clicked": "d",
         "situation": "d1s1.png"
     },
     {
-        "time": 10387.400000006892,
+        "time": 1719.8999999673106,
         "clicked": "e",
         "situation": "d1s3.png"
     },
     {
-        "time": 10580.29999997234,
-        "clicked": "e",
+        "time": 1127.9000000213273,
+        "clicked": "f",
         "situation": "d1s2.png"
     },
     {
-        "time": 10763.80000001518,
-        "clicked": "e",
+        "time": 3114.000000001397,
+        "clicked": "i",
         "situation": "d3s3.png"
     },
     {
-        "time": 10950.199999962933,
-        "clicked": "e",
+        "time": 3345.8999999566004,
+        "clicked": "i",
         "situation": "d3s2.png"
     },
     {
-        "time": 11137.600000016391,
+        "time": 312530.20000003744,
         "clicked": "e",
         "situation": "d3s1.png"
     }

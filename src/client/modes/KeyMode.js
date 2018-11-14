@@ -66,10 +66,9 @@ export default class SpaceKeyMode extends Component {
         }
         break;
       case 3:
-        if(KEYPRESSED===" ") {
-          this.time=performance.now();
+        if(KEYPRESSED==="Enter") {
           this.setState({
-            state: 1
+            state: 0
           });
         }
         break;
@@ -114,9 +113,12 @@ export default class SpaceKeyMode extends Component {
     const actions = this.props.projectData.config.actions;
     for(let key in actions) {
       buttons.push(
-        <Button>
-          {actions[key].key+": "+actions[key].name}
-        </Button>
+        <div style={styles.button}>
+          <Button>
+            {actions[key].key+": "}
+          </Button>
+          <p style={styles.name}>{actions[key].name}</p>
+        </div>
       );
     }
     return buttons;
@@ -129,13 +131,10 @@ export default class SpaceKeyMode extends Component {
         return <p style={styles.question}>Ready? Press Space...</p>;
         break;
       case 1:
-        return (<div>
-            <p style={styles.question}>Which action do you choose?</p>
-            <br />
-            {
-              this.getButtonBar()
-            }
-            <div style={{width:"100%"}}>{situations[designs[design]][show].payload}</div>
+        return (
+          <div style={styles.situation}>
+            <div style={{width: "100%"}}>{situations[designs[design]][show].payload}</div>
+            <div style={styles.buttonbar}>{this.getButtonBar()}</div>
           </div>);
         break;
       case 3:
@@ -144,9 +143,9 @@ export default class SpaceKeyMode extends Component {
             <p style={styles.question}>
             {"The next design will be design: "+ designs[design]}
             <br />
-            Please read the instructions.
             <br />
-            Ready? Press Space...
+            <br />
+            Please read the instructions and press Enter to continue
             </p>
           </div>
         );
@@ -159,11 +158,24 @@ export default class SpaceKeyMode extends Component {
 }
 
 const styles = {
-  text: {
-    fontSize: 22
+  situation : {
+    display: "flex",
+    flexDirection: "row",
+  },
+  buttonbar: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly"
   },
   question: {
-    fontSize: 26
+    fontSize: 25
+  },
+  name: {
+    alignSelf: "center"
+  },
+  button: {
+    display: "flex",
+    flexDirection: "row",
   },
   thanks: {
     fontSize: 35,
