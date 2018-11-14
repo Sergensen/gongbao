@@ -41,6 +41,38 @@ app.get('/save/:id/:project/:data', function (req, res) {
   });
 });
 
+
+app.get('/temp/:id/:project/:data', function (req, res) {
+  const { id, project, data } = req.params;
+  const dir = __dirname+"/Projects/"+project+"/subjects/";
+
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+
+  let today = new Date();
+  let sec = today.getSeconds();
+  let min = today.getMinutes();
+  let hh = today.getHours();
+  let dd = today.getDate();
+  let mm = today.getMonth()+1;
+  let yyyy = today.getFullYear();
+
+  min = (min<10)?'0'+min:min;
+  sec = (sec<10)?'0'+sec:sec;
+  dd = (dd<10)?'0'+dd:dd;
+  mm = (mm<10)?'0'+mm:mm;
+
+  today = "temp_"+ yyyy + mm + dd + '_' + hh + min + sec;
+
+  fs.writeFile(dir+id+"/"+today+".json", JSON.stringify(JSON.parse(data), null, 4), (err) => {
+    if (err) throw err;
+    res.json({
+      success: true
+    });
+  });
+});
+
 app.get('/study/:id/:project', function (req, res) {
   const { id, project } = req.params;
   const dir = __dirname+"/Projects/"+project+"/subjects/"+id+"/";

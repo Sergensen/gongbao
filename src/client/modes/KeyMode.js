@@ -6,6 +6,7 @@ export default class SpaceKeyMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData } = this.props;
+    console.log(this.props);
     this.time = 0;
     this.state={
       situations: [],
@@ -181,6 +182,6 @@ const styles = {
     fontSize: 35,
   },
   image: {
-    width: 800
+    maxHeight: "90vh"
   }
 }
