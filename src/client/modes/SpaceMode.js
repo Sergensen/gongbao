@@ -102,7 +102,7 @@ export default class SpaceMode extends Component {
               <img
                 alt="reload"
                 style={styles.image}
-                src={"http://localhost:3001/static/"+project+"/subjects/"+id+"/img/"+schedule[i][j]}
+                src={"http://localhost:3001/static/"+project+"/img/"+schedule[i][j]}
               />
             )
           }

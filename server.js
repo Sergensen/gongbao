@@ -18,7 +18,7 @@ app.get('/save/:id/:project/:data', function (req, res) {
     fs.mkdirSync(dir);
   }
 
-  fs.writeFile(dir+id+"/"+id+".json", JSON.stringify(JSON.parse(data), null, 4), (err) => {
+  fs.writeFile(dir+id+"/"+Date.now()+".json", JSON.stringify(JSON.parse(data), null, 4), (err) => {
     if (err) throw err;
     res.json({
       success: true
@@ -31,7 +31,7 @@ app.get('/study/:id/:project', function (req, res) {
   const dir = __dirname+"/Projects/"+project+"/subjects/"+id+"/";
   fs.readdir(dir, function(err, items) {
     if(items) {
-      fs.readdir(dir+"img", function(err, items) {
+      fs.readdir(__dirname+"/Projects/"+project+"/img", function(err, items) {
         if(items) {
           fs.readFile(dir+"study.json", 'utf8', function(err, contents) {
               res.json({

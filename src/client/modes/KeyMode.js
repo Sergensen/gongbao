@@ -46,7 +46,7 @@ export default class SpaceKeyMode extends Component {
 
         if(allowedKeys.includes(KEYPRESSED)) {
           userData.push({
-            time: this.time,
+            time: performance.now()-this.time,
             clicked: KEYPRESSED,
             situation: situations[designs[design]][show].url
           });
@@ -98,7 +98,7 @@ export default class SpaceKeyMode extends Component {
               <img
                 alt="reload"
                 style={styles.image}
-                src={"http://localhost:3001/static/"+project+"/subjects/"+id+"/img/"+schedule[i][j]}
+                src={"http://localhost:3001/static/"+project+"/img/"+schedule[i][j]}
               />
             )
           }
