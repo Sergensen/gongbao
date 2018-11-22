@@ -110,12 +110,12 @@ export default class SpaceKeyMode extends Component {
     this.setState({ situations });
   }
 
-  getButtonBar() {
+  getButtonBar(margin=0) {
     let buttons =[];
     const actions = this.props.projectData.config.actions;
     for(let key in actions) {
       buttons.push(
-        <div style={styles.button}>
+        <div style={{...styles.button, marginTop: margin}}>
           <Button>
             {actions[key].key+": "}
           </Button>
@@ -130,7 +130,13 @@ export default class SpaceKeyMode extends Component {
     const { show, design, designs, situations, state } = this.state;
     switch (state) {
       case 0:
-        return <p style={styles.question}>Ready? Press Space...</p>;
+        return (
+          <div style={styles.situation}>
+            <div style={{width: "100%"}}>
+              <p style={styles.question}>Ready? Press Space...</p>
+            </div>
+            <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
+          </div>);
         break;
       case 1:
         return (
