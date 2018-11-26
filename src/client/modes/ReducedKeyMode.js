@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class ReducedKeyMode extends Component {
   constructor(props) {
@@ -149,7 +149,7 @@ export default class ReducedKeyMode extends Component {
             <div style={{width: "100%"}}>
               <p style={styles.question}>Ready? Press Space...</p>
               {
-                (show>0) && <Button onClick={this.undo.bind(this)} icon="undo"></Button>
+                (show>0) && <Button onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
               }
             </div>
             <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
@@ -173,7 +173,7 @@ export default class ReducedKeyMode extends Component {
             Please read the instructions and press Enter to continue
             </p>
             {
-              (design>0) && <Button onClick={this.undo.bind(this)} icon="undo"></Button>
+              (design>0) && <Button onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
             }
           </div>
         );
