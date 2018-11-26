@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from 'semantic-ui-react';
 
-export default class KeyMode extends Component {
+export default class ReducedKeyMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData } = this.props;
-    console.log(this.props);
     this.time = 0;
     this.state={
       situations: [],
@@ -22,6 +21,19 @@ export default class KeyMode extends Component {
         }
       ]
     }
+  }
+
+  undo(e) {
+    const { design, schedule, show, userData } = this.state;
+
+    delete userData[userData.length-1];
+
+    this.setState({
+      show: show>0?show-1:schedule[design-1].length-1,
+      design: show>0?design:design-1,
+      userData,
+      state: 1
+    });
   }
 
   componentDidMount() {
@@ -42,10 +54,9 @@ export default class KeyMode extends Component {
         }
         break;
       case 1:
-        const { standard } = this.props.projectData.config.actions;
+        const { schedule } = this.props.projectData.config.actions;
         let allowedKeys = [];
-        for(let key in standard) allowedKeys.push(standard[key].key);
-
+        for(let key in schedule[design][show]) allowedKeys.push(schedule[design][show][key]+"");
         if(allowedKeys.includes(KEYPRESSED)) {
           userData.push({
             time: performance.now()-this.time,
@@ -111,29 +122,18 @@ export default class KeyMode extends Component {
     this.setState({ situations });
   }
 
-  undo(e) {
-    const { design, schedule, show, userData } = this.state;
-
-    delete userData[userData.length-1];
-
-    this.setState({
-      show: show>0?show-1:schedule[design-1].length-1,
-      design: show>0?design:design-1,
-      userData,
-      state: 1
-    });
-  }
-
   getButtonBar(margin=0) {
+    const { show, design } = this.state;
     let buttons =[];
-    const {standard} = this.props.projectData.config.actions;
-    for(let key in standard) {
+    const { types, schedule } = this.props.projectData.config.actions;
+
+    for(let key in schedule[design][show]) {
       buttons.push(
         <div style={{...styles.button, marginTop: margin}}>
           <Button>
-            {standard[key].key+": "}
+            {schedule[design][show][key]+": "}
           </Button>
-          <p style={styles.name}>{standard[key].name}</p>
+          <p style={styles.name}>{types[schedule[design][show][key]]}</p>
         </div>
       );
     }

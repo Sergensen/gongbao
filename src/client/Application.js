@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import KeyMode from './modes/KeyMode';
+import ReducedKeyMode from './modes/ReducedKeyMode';
 import SpaceMode from './modes/SpaceMode';
 import SpaceKeyMode from './modes/SpaceKeyMode';
 
@@ -18,6 +19,9 @@ export default class Login extends Component {
         }
         {mode==="spacekeymode" &&
           <SpaceKeyMode {...this.props} />
+        }
+        {mode==="reducedkeymode" &&
+          <ReducedKeyMode {...this.props} />
         }
       </div>
     );
