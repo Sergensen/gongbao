@@ -6,7 +6,6 @@ export default class KeyMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData } = this.props;
-    console.log(this.props);
     this.time = 0;
     this.state={
       situations: [],
@@ -75,6 +74,8 @@ export default class KeyMode extends Component {
           });
         }
         break;
+      default:
+        return;
     }
   }
 
@@ -87,7 +88,7 @@ export default class KeyMode extends Component {
   }
 
   preload() {
-    const { id, project, projectData } = this.props;
+    const { project, projectData } = this.props;
     const { schedule, designs } = projectData.config;
     let situations = {};
     for (var i = 0; i < schedule.length; i++) {
@@ -154,14 +155,12 @@ export default class KeyMode extends Component {
             </div>
             <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
           </div>);
-        break;
       case 1:
         return (
           <div style={styles.situation}>
             <div style={{width: "100%"}}>{situations[designs[design]][show].payload}</div>
             <div style={styles.buttonbar}>{this.getButtonBar()}</div>
           </div>);
-        break;
       case 3:
         return (
           <div>
@@ -177,10 +176,10 @@ export default class KeyMode extends Component {
             }
           </div>
         );
-        break;
       case 4:
         return <p style={styles.thanks}>Thank you for your participation.</p>;
-        break;
+      default:
+        return;
     }
   }
 }

@@ -44,12 +44,3 @@ class App extends Component {
 }
 
 export default App;
-
-const styles = {
-  container: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-}

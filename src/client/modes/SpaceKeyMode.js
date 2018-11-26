@@ -82,6 +82,8 @@ export default class SpaceKeyMode extends Component {
           });
         }
         break;
+      default:
+        break;
     }
   }
 
@@ -94,7 +96,7 @@ export default class SpaceKeyMode extends Component {
   }
 
   preload() {
-    const { id, project, projectData } = this.props;
+    const { project, projectData } = this.props;
     const { schedule, designs } = projectData.config;
     let situations = {};
     for (var i = 0; i < schedule.length; i++) {
@@ -136,10 +138,8 @@ export default class SpaceKeyMode extends Component {
     switch (state) {
       case 0:
         return <p style={styles.question}>Ready? Press Space...</p>;
-        break;
       case 1:
         return situations[designs[design]][show].payload;
-        break;
       case 2:
         return (
           <div>
@@ -150,7 +150,6 @@ export default class SpaceKeyMode extends Component {
             }
           </div>
         );
-        break;
       case 3:
         return (
           <div>
@@ -163,10 +162,10 @@ export default class SpaceKeyMode extends Component {
             </p>
           </div>
         );
-        break;
       case 4:
         return <p style={styles.thanks}>Thank you for your participation.</p>;
-        break;
+      default:
+        return;
     }
   }
 }
