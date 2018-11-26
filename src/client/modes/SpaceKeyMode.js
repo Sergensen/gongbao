@@ -48,10 +48,10 @@ export default class SpaceKeyMode extends Component {
         }
         break;
       case 2:
-        const actions = this.props.projectData.config.actions;
+        const {standard} = this.props.projectData.config.actions;
         let allowedKeys = [];
-        for(let key in actions) allowedKeys.push(actions[key].key);
-
+        for(let key in standard) allowedKeys.push(standard[key].key);
+        console.log(allowedKeys);
         if(allowedKeys.includes(KEYPRESSED)) {
           userData.push({
             time: this.time,
@@ -122,11 +122,11 @@ export default class SpaceKeyMode extends Component {
 
   getButtonBar() {
     let buttons =[];
-    const actions = this.props.projectData.config.actions;
-    for(let key in actions) {
+    const {standard} = this.props.projectData.config.actions;
+    for(let key in standard) {
       buttons.push(
-        <Button>
-          {actions[key].key+": "+actions[key].name}
+        <Button key={Math.random()}>
+          {standard[key].key+": "+standard[key].name}
         </Button>
       );
     }

@@ -130,7 +130,7 @@ export default class KeyMode extends Component {
     const {standard} = this.props.projectData.config.actions;
     for(let key in standard) {
       buttons.push(
-        <div style={{...styles.button, marginTop: margin}}>
+        <div key={Math.random()} style={{...styles.button, marginTop: margin}}>
           <Button>
             {standard[key].key+": "}
           </Button>

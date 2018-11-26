@@ -131,7 +131,7 @@ export default class ReducedKeyMode extends Component {
 
     for(let key in schedule[design][show]) {
       buttons.push(
-        <div style={{...styles.button, marginTop: margin}}>
+        <div key={Math.random()} style={{...styles.button, marginTop: margin}}>
           <Button>
             {schedule[design][show][key]+": "}
           </Button>
