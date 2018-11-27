@@ -51,7 +51,6 @@ export default class SpaceKeyMode extends Component {
         const {standard} = this.props.projectData.config.actions;
         let allowedKeys = [];
         for(let key in standard) allowedKeys.push(standard[key].key);
-        console.log(allowedKeys);
         if(allowedKeys.includes(KEYPRESSED)) {
           userData.push({
             time: this.time,

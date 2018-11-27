@@ -115,7 +115,7 @@ export default class KeyMode extends Component {
   undo(e) {
     const { design, schedule, show, userData } = this.state;
 
-    delete userData[userData.length-1];
+    userData.pop();
 
     this.setState({
       show: show>0?show-1:schedule[design-1].length-1,
