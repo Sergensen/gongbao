@@ -7,6 +7,7 @@ app.use(cors());
 app.use('/static/',express.static("Projects"));
 
 app.get('/', function (req, res) {
+  console.log("")
  res.send('Hello World');
 });
 

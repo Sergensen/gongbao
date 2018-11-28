@@ -32,5 +32,5 @@
     "concurrently": "^4.0.1",
     "nodemon": "^1.18.4"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://10.0.1.104:3001"
 }

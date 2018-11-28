@@ -13,6 +13,7 @@ export default class ReducedKeyMode extends Component {
       schedule: projectData.config.schedule,
       design:0,
       show: 0,
+      undo: false,
       state: 3, //0: ready? 1: situation zeigen, 2: Frage beantworten, 3: Nächste Sit erklären, 4: Finished
       userData: [
         {
@@ -25,13 +26,13 @@ export default class ReducedKeyMode extends Component {
 
   undo(e) {
     const { design, schedule, show, userData } = this.state;
-
-    userData.pop();
+    const last = userData.pop();
 
     this.setState({
       show: show>0?show-1:schedule[design-1].length-1,
       design: show>0?design:design-1,
       userData,
+      undo: last.time,
       state: 1
     });
   }
@@ -43,7 +44,7 @@ export default class ReducedKeyMode extends Component {
 
   spaceEvent(e) {
     const KEYPRESSED = e.key;
-    const { design, designs, show, state, situations, userData } = this.state;
+    const { design, designs, show, state, situations, userData, undo } = this.state;
     switch (state) {
       case 0:
         if(KEYPRESSED===" ") {
@@ -58,8 +59,9 @@ export default class ReducedKeyMode extends Component {
         let allowedKeys = [];
         for(let key in schedule[design][show]) allowedKeys.push(schedule[design][show][key]+"");
         if(allowedKeys.includes(KEYPRESSED)) {
+          console.log(undo?undo:performance.now()-this.time);
           userData.push({
-            time: performance.now()-this.time,
+            time: undo?undo:performance.now()-this.time,
             clicked: KEYPRESSED,
             situation: situations[designs[design]][show].url
           });
@@ -72,7 +74,8 @@ export default class ReducedKeyMode extends Component {
             userData,
             show: nextShow,
             design: nextDesign,
-            state: nextState
+            state: nextState,
+            undo: false
           });
 
           if(nextState>2) this.saveData(userData, "temp");
