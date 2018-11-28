@@ -1,16 +1,34 @@
 {
   "schedule": [
-    ["d2s2.png", "d2s1.png", "d2s3.png"],
-    ["d1s1.png", "d1s3.png", "d1s2.png"],
-    ["d3s3.png", "d3s2.png", "d3s1.png"]
+    ["d2s2.png","d2s2.png","d2s2.png","d2s2.png","d2s2.png","d2s2.png"],
+    ["d1s2.png","d1s2.png","d1s2.png","d1s2.png","d1s2.png","d1s2.png"],
+    ["d3s2.png","d3s2.png","d3s2.png","d3s2.png","d3s2.png","d3s2.png"]
   ],
   "designs": [
-    "Design2", "Design1", "Design3"
+    "D2", "D1", "D3"
   ],
-  "actions": [
-    {"name": "accelerate", "key": "d"},
-    {"name": "decelerate", "key": "e"},
-    {"name": "change lanes", "key": "f"},
-    {"name": "test123", "key": "i"}
-  ]
+  "actions": {
+    "standard": [
+      {"name": "action1", "key": "1"},
+      {"name": "action2", "key": "2"},
+      {"name": "action3", "key": "3"},
+      {"name": "action4", "key": "4"},
+      {"name": "action5", "key": "5"},
+      {"name": "action6", "key": "6"},
+      {"name": "action7", "key": "7"}
+    ],
+    "types" : {
+      "1": "action1",
+      "2": "action2",
+      "3": "action3",
+      "4": "action4",
+      "5": "action5",
+      "6": "action6",
+      "7": "action7"
+    },
+    "schedule": [
+      [[1,2,3],[1,4,5],[2,4,5],[3,4,6],[1,6,7],[2,3,6]],
+      [[2,4,5],[3,4,6],[1,2,3],[1,4,5],[1,6,7],[2,3,6]]
+    ]
+  }
 }
