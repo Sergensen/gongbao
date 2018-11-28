@@ -150,8 +150,9 @@ export default class ReducedKeyMode extends Component {
           <div style={styles.situation}>
             <div style={{width: "100%"}}>
               <p style={styles.question}>Ready? Press Space...</p>
+              <div style={{width: "100%", opacity: 0}}>{situations[designs[design]][show].payload}</div>
               {
-                (show>0) && <Button onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
+                (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
               }
             </div>
             <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
@@ -165,7 +166,7 @@ export default class ReducedKeyMode extends Component {
       case 3:
         return (
           <div>
-            <p style={styles.question}>
+            <p style={styles.nextDesign}>
             {"The next design will be design: "+ designs[design]}
             <br />
             <br />
@@ -173,7 +174,7 @@ export default class ReducedKeyMode extends Component {
             Please read the instructions and press Enter to continue
             </p>
             {
-              (design>0) && <Button onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
+              (design>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
             }
           </div>
         );
@@ -193,10 +194,15 @@ const styles = {
   buttonbar: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    minWidth: 250
+  },
+  nextDesign: {
+    fontSize: 25,
   },
   question: {
-    fontSize: 25
+    fontSize: 25,
+    position: "absolute"
   },
   name: {
     alignSelf: "center"
@@ -207,6 +213,9 @@ const styles = {
   },
   thanks: {
     fontSize: 35,
+  },
+  undo: {
+    position: "absolute"
   },
   image: {
     maxHeight: "90vh"
