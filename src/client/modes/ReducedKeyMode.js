@@ -14,6 +14,7 @@ export default class ReducedKeyMode extends Component {
       design:0,
       show: 0,
       undo: false,
+      lastaction: "",
       state: 3, //0: ready? 1: situation zeigen, 2: Frage beantworten, 3: Nächste Sit erklären, 4: Finished
       userData: [
         {
@@ -59,7 +60,6 @@ export default class ReducedKeyMode extends Component {
         let allowedKeys = [];
         for(let key in schedule[design][show]) allowedKeys.push(schedule[design][show][key]+"");
         if(allowedKeys.includes(KEYPRESSED)) {
-          console.log(undo?undo:performance.now()-this.time);
           userData.push({
             time: undo?undo:performance.now()-this.time,
             clicked: KEYPRESSED,
@@ -74,6 +74,7 @@ export default class ReducedKeyMode extends Component {
             userData,
             show: nextShow,
             design: nextDesign,
+            lastaction: KEYPRESSED,
             state: nextState,
             undo: false
           });
@@ -146,7 +147,7 @@ export default class ReducedKeyMode extends Component {
   }
 
   render() {
-    const { show, design, designs, situations, state } = this.state;
+    const { show, design, designs, situations, state, lastaction } = this.state;
     switch (state) {
       case 0:
         return (
@@ -155,7 +156,7 @@ export default class ReducedKeyMode extends Component {
               <p style={styles.question}>Ready? Press Space...</p>
               <div style={{width: "100%", opacity: 0}}>{situations[designs[design]][show].payload}</div>
               {
-                (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
+                (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
               }
             </div>
             <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
@@ -177,7 +178,7 @@ export default class ReducedKeyMode extends Component {
             Please read the instructions and press Enter to continue
             </p>
             {
-              (design>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>undo</Button>
+              (design>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
             }
           </div>
         );
