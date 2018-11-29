@@ -3,6 +3,7 @@ import KeyMode from './modes/KeyMode';
 import ReducedKeyMode from './modes/ReducedKeyMode';
 import SpaceMode from './modes/SpaceMode';
 import SpaceKeyMode from './modes/SpaceKeyMode';
+import ImageTest from './modes/ImageTest';
 
 export default class Login extends Component {
   render() {
@@ -21,6 +22,9 @@ export default class Login extends Component {
         }
         {mode==="reducedkeymode" &&
           <ReducedKeyMode {...this.props} />
+        }
+        {mode==="imagetest" &&
+          <ImageTest {...this.props} />
         }
       </div>
     );
