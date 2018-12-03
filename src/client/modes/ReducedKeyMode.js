@@ -27,13 +27,20 @@ export default class ReducedKeyMode extends Component {
 
   undo(e) {
     const { design, schedule, show, userData } = this.state;
-    const last = userData.pop();
+    const { time, clicked, situation } = userData.pop();
+
+    userData.push({
+      time,
+      clicked,
+      situation,
+      undo: true
+    });
 
     this.setState({
       show: show>0?show-1:schedule[design-1].length-1,
       design: show>0?design:design-1,
       userData,
-      undo: last.time,
+      undo: time,
       state: 1
     });
   }
@@ -147,7 +154,8 @@ export default class ReducedKeyMode extends Component {
   }
 
   render() {
-    const { show, design, designs, situations, state, lastaction } = this.state;
+    const { show, design, designs, situations, state, lastaction, userData } = this.state;
+    console.log(userData);
     switch (state) {
       case 0:
         return (
