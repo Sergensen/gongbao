@@ -142,11 +142,16 @@ export default class SpaceKeyMode extends Component {
 
   getButtonBar() {
     let buttons =[];
-    const {standard} = this.props.projectData.config.actions;
-    for(let key in standard) {
+    const {types, schedule} = this.props.projectData.config.actions;
+    const {show, design, designs} = this.state;
+
+    for(let i in types) {
+      let style = styles.button;
+      for(let j in schedule[design][show]) if(parseInt(i)===schedule[design][show][j]) style = styles.activeButton;
+      for(let j in schedule[design][show]) console.log(i, schedule[design][show][j]);
       buttons.push(
-        <Button key={Math.random()}>
-          {standard[key].key+": "+standard[key].name}
+        <Button style={style} key={Math.random()}>
+          {i+": "+types[i]}
         </Button>
       );
     }
@@ -160,6 +165,11 @@ export default class SpaceKeyMode extends Component {
         return (
           <div>
             <p style={styles.question}>Ready? Press Space...</p>
+            <div style={styles.buttons}>
+              {
+                this.getButtonBar()
+              }
+            </div>
             {
               (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
             }
@@ -172,9 +182,11 @@ export default class SpaceKeyMode extends Component {
           <div>
             <p style={styles.question}>Which action do you choose?</p>
             <br />
-            {
-              this.getButtonBar()
-            }
+            <div style={styles.buttons}>
+              {
+                this.getButtonBar()
+              }
+            </div>
           </div>
         );
       case 3:
@@ -198,14 +210,31 @@ export default class SpaceKeyMode extends Component {
 }
 
 const styles = {
+  buttons: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  button: {
+    textAlign: "left",
+    fontSize: 20,
+    color: "silver",
+    pointerEvents:"none"
+  },
+  activeButton: {
+    textAlign: "left",
+    pointerEvents:"none",
+    fontSize: 24
+  },
   text: {
     fontSize: 22
   },
   question: {
-    fontSize: 26
+    fontSize: 30,
+    textAlign: "center"
   },
   undo: {
-    position: "absolute"
+    marginTop: 100,
+    backgroundColor: "white"
   },
   thanks: {
     fontSize: 35,
