@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class SpaceKeyMode extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class SpaceKeyMode extends Component {
       designs: projectData.config.designs,
       design:0,
       show: 0,
+      lastaction: "",
       state: 3, //0: ready? 1: situation zeigen, 2: Frage beantworten, 3: Nächste Sit erklären, 4: Finished
       userData: [
         {
@@ -25,6 +26,26 @@ export default class SpaceKeyMode extends Component {
   componentDidMount() {
     this.preload();
     window.addEventListener('keydown', this.spaceEvent.bind(this));
+  }
+
+  undo(e) {
+    const { design, schedule, show, userData } = this.state;
+    const { time, clicked, situation } = userData.pop();
+
+    userData.push({
+      time,
+      clicked,
+      situation,
+      undo: true
+    });
+
+    this.setState({
+      show: show>0?show-1:schedule[design-1].length-1,
+      design: show>0?design:design-1,
+      userData,
+      undo: time,
+      state: 2
+    });
   }
 
   spaceEvent(e) {
@@ -64,6 +85,7 @@ export default class SpaceKeyMode extends Component {
 
           this.setState({
             userData,
+            lastaction: KEYPRESSED,
             show: nextShow,
             design: nextDesign,
             state: nextState
@@ -74,10 +96,9 @@ export default class SpaceKeyMode extends Component {
         }
         break;
       case 3:
-        if(KEYPRESSED===" ") {
-          this.time=performance.now();
+        if(KEYPRESSED==="Enter") {
           this.setState({
-            state: 1
+            state: 0
           });
         }
         break;
@@ -133,10 +154,17 @@ export default class SpaceKeyMode extends Component {
   }
 
   render() {
-    const { show, design, designs, situations, state } = this.state;
+    const { show, design, designs, situations, state, lastaction } = this.state;
     switch (state) {
       case 0:
-        return <p style={styles.question}>Ready? Press Space...</p>;
+        return (
+          <div>
+            <p style={styles.question}>Ready? Press Space...</p>
+            {
+              (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
+            }
+          </div>
+        );
       case 1:
         return situations[designs[design]][show].payload;
       case 2:
@@ -157,7 +185,7 @@ export default class SpaceKeyMode extends Component {
             <br />
             Please read the instructions.
             <br />
-            Ready? Press Space...
+            Ready? Press Enter...
             </p>
           </div>
         );
@@ -175,6 +203,9 @@ const styles = {
   },
   question: {
     fontSize: 26
+  },
+  undo: {
+    position: "absolute"
   },
   thanks: {
     fontSize: 35,
