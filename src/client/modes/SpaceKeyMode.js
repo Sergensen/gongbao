@@ -166,6 +166,7 @@ export default class SpaceKeyMode extends Component {
         return (
           <div>
             <p style={styles.question}>Ready? Press Space...</p>
+            <br />
             <div style={styles.buttons}>
               {
                 this.getButtonBar()
@@ -213,18 +214,19 @@ export default class SpaceKeyMode extends Component {
 const styles = {
   buttons: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    minWidth: 600
   },
   button: {
     textAlign: "left",
-    fontSize: 20,
+    fontSize: 22,
     color: "silver",
     pointerEvents:"none"
   },
   activeButton: {
     textAlign: "left",
     pointerEvents:"none",
-    fontSize: 24
+    fontSize: 22
   },
   text: {
     fontSize: 22
