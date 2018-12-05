@@ -173,7 +173,7 @@ export default class SpaceKeyMode extends Component {
               }
             </div>
             {
-              (show>0) && <Button color="blue" style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
+              (show>0) && <Button color="blue" style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"Last action: "+lastaction}</Button>
             }
           </div>
         );
