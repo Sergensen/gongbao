@@ -164,7 +164,7 @@ export default class ReducedKeyMode extends Component {
               <p style={styles.question}>Ready? Press Space...</p>
               <div style={{width: "100%", opacity: 0}}>{situations[designs[design]][show].payload}</div>
               {
-                (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
+                (show>0) && <Button color="blue" style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
               }
             </div>
             <div style={styles.buttonbar}>{this.getButtonBar(15)}</div>
@@ -186,7 +186,7 @@ export default class ReducedKeyMode extends Component {
             Please read the instructions and press Enter to continue
             </p>
             {
-              (design>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
+              (design>0) && <Button color="blue" style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
             }
           </div>
         );

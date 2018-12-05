@@ -44,10 +44,9 @@ export default class Login extends Component {
     return (
       <Grid>
         <Grid.Column>
-          <Divider />
           <div style={styles.container}>
             <Form>
-              <Header size="huge" style={{color: "white"}}>Enter experiment</Header>
+              <Header size="huge" style={{color: "black"}}>Enter experiment</Header>
               <Form.Field>
                 <label>Subject ID</label>
                 <Input onKeyUp={this.handleChange.bind(this)} id="id" placeholder='Subject ID' />
@@ -60,7 +59,7 @@ export default class Login extends Component {
                 <label>Experiment mode</label>
                 <Dropdown onChange={this.props.handleSelection.bind(this)} placeholder='Select mode' fluid selection options={[{text: "SpaceMode", value:"spacemode"},{text: "KeyMode", value:"keymode"},{text: "SpaceKeyMode", value:"spacekeymode"},{text: "ReducedKeyMode", value:"reducedkeymode"}]} />
               </Form.Field>
-              <Button disabled={this.props.mode===""} onClick={this.loadProject.bind(this)}>Start</Button>
+              <Button style={styles.button} disabled={this.props.mode===""} color="blue" onClick={this.loadProject.bind(this)}>Start</Button>
               {
                 this.props.error &&
                 <Message
@@ -71,7 +70,6 @@ export default class Login extends Component {
               }
             </Form>
           </div>
-          <Divider />
         </Grid.Column>
       </Grid>
     );
@@ -79,10 +77,14 @@ export default class Login extends Component {
 }
 
 const styles = {
+  button: {
+    width: "100%"
+  },
   container: {
     width: "100%",
     display: "flex",
     alignItems: "center",
+    marginTop: 50,
     justifyContent: "center"
   },
 }

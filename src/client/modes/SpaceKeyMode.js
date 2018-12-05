@@ -173,7 +173,7 @@ export default class SpaceKeyMode extends Component {
               }
             </div>
             {
-              (show>0) && <Button style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
+              (show>0) && <Button color="blue" style={styles.undo} onClick={this.undo.bind(this)}><Icon name="undo"/>{"undo last action: "+lastaction}</Button>
             }
           </div>
         );
@@ -215,16 +215,20 @@ const styles = {
   buttons: {
     display: "flex",
     flexDirection: "column",
-    minWidth: 600
+    minWidth: 600,
+    border: "1px solid black",
+    borderRadius: 5
   },
   button: {
     textAlign: "left",
     fontSize: 22,
+    margin: 0,
     color: "silver",
     pointerEvents:"none"
   },
   activeButton: {
     textAlign: "left",
+    margin: 0,
     pointerEvents:"none",
     fontSize: 22
   },
@@ -237,7 +241,6 @@ const styles = {
   },
   undo: {
     marginTop: 100,
-    backgroundColor: "white"
   },
   thanks: {
     fontSize: 35,

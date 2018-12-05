@@ -30,7 +30,7 @@ export default class Login extends Component {
 const styles = {
   container: {
     width: "100%",
-    backgroundColor: "darkgrey",
+    backgroundColor: "#ECECEC",
     display: "flex",
     marginTop: 50,
     justifyContent: "center",
