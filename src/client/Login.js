@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Dropdown, Divider, Button, Input, Form, Message, Header } from 'semantic-ui-react';
+import { Grid, Dropdown, Button, Input, Form, Message, Header } from 'semantic-ui-react';
 import axios from 'axios';
 
 export default class Login extends Component {

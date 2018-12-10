@@ -141,7 +141,7 @@ export default class SpaceKeyMode extends Component {
     this.setState({ situations });
   }
 
-  getButtonBar() {
+  getButtonBar(backgroundColor) {
     let buttons =[];
     const {types, schedule} = this.props.projectData.config.actions;
     const {show, design} = this.state;
@@ -151,7 +151,7 @@ export default class SpaceKeyMode extends Component {
       for(let j in schedule[design][show]) if(parseInt(i)===schedule[design][show][j]) style = styles.activeButton;
       for(let j in schedule[design][show]) console.log(i, schedule[design][show][j]);
       buttons.push(
-        <Button style={style} key={Math.random()}>
+        <Button style={{...style, backgroundColor}} key={Math.random()}>
           {i+": "+types[i]}
         </Button>
       );
@@ -169,7 +169,7 @@ export default class SpaceKeyMode extends Component {
             <br />
             <div style={styles.buttons}>
               {
-                this.getButtonBar()
+                this.getButtonBar("#A0AFFF")
               }
             </div>
             {
@@ -186,7 +186,7 @@ export default class SpaceKeyMode extends Component {
             <br />
             <div style={styles.buttons}>
               {
-                this.getButtonBar()
+                this.getButtonBar("#B1FFA1")
               }
             </div>
           </div>
@@ -217,13 +217,13 @@ const styles = {
     flexDirection: "column",
     minWidth: 600,
     border: "1px solid black",
-    borderRadius: 5
+    borderRadius: 5,
   },
   button: {
     textAlign: "left",
     fontSize: 22,
     margin: 0,
-    color: "silver",
+    color: "darkgray",
     pointerEvents:"none"
   },
   activeButton: {
