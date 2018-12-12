@@ -20,7 +20,9 @@ export default class SpaceKeyMode extends Component {
           subject: id,
           project
         }
-      ]
+      ],
+      ready: 0,
+      choose: 0
     }
   }
 
