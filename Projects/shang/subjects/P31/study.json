@@ -1,0 +1,41 @@
+{
+  "schedule": [
+    ["T0S3.png", "T0S9.png", "T0S8.png", "T0S5.png", "T0S6.png", "T0S7.png", "T0S11.png", "T0S4.png", "T0S1.png", "T0S2.png", "T0S10.png", "T0S12.png", "T0S9.png", "T0S6.png", "T0S10.png", "T0S7.png", "T0S4.png", "T0S3.png", "T0S1.png", "T0S11.png", "T0S12.png", "T0S8.png", "T0S2.png", "T0S5.png"],
+    ["K4S5.png", "K4S3.png", "K4S4.png", "K4S2.png", "K4S1.png", "K4S5.png", "K4S1.png", "K4S4.png", "K4S3.png", "K4S2.png", "K4S1.png", "K4S5.png", "K4S3.png", "K4S2.png", "K4S4.png", "K4S3.png", "K4S2.png", "K4S5.png", "K4S4.png", "K4S1.png", "K4S4.png", "K4S1.png", "K4S2.png", "K4S3.png", "K4S5.png"],
+    ["A0S1.png", "A0S4.png", "A0S5.png", "A0S2.png", "A0S3.png", "A0S1.png", "A0S4.png", "A0S2.png", "A0S3.png", "A0S5.png", "A0S2.png", "A0S1.png", "A0S5.png", "A0S3.png", "A0S4.png", "A0S3.png", "A0S1.png", "A0S5.png", "A0S2.png", "A0S4.png", "A0S1.png", "A0S4.png", "A0S5.png", "A0S3.png", "A0S2.png"],
+    ["K3S2.jpg", "K3S4.jpg", "K3S1.jpg", "K3S5.jpg", "K3S3.jpg", "K3S5.jpg", "K3S4.jpg", "K3S1.jpg", "K3S2.jpg", "K3S3.jpg", "K3S2.jpg", "K3S5.jpg", "K3S3.jpg", "K3S4.jpg", "K3S1.jpg", "K3S4.jpg", "K3S1.jpg", "K3S3.jpg", "K3S5.jpg", "K3S2.jpg", "K3S1.jpg", "K3S2.jpg", "K3S3.jpg", "K3S4.jpg", "K3S5.jpg"],
+    ["A1S3.jpg", "A1S2.jpg", "A1S4.jpg", "A1S5.jpg", "A1S1.jpg", "A1S2.jpg", "A1S1.jpg", "A1S3.jpg", "A1S5.jpg", "A1S4.jpg", "A1S1.jpg", "A1S3.jpg", "A1S2.jpg", "A1S4.jpg", "A1S5.jpg", "A1S2.jpg", "A1S5.jpg", "A1S1.jpg", "A1S3.jpg", "A1S4.jpg", "A1S1.jpg", "A1S4.jpg", "A1S2.jpg", "A1S3.jpg", "A1S5.jpg"]
+  ],
+  "designs": [
+    "T0", "K4", "A0", "K3", "A1"
+  ],
+  "actions": {
+    "standard": [
+      {"name": "locate charging station", "key": "1"},
+      {"name": "switch off air conditioning", "key": "2"},
+      {"name": "prepare for next action", "key": "3"},
+      {"name": "decelerate", "key": "4"},
+      {"name": "drive at constant speed", "key": "5"},
+      {"name": "accelerate", "key": "6"},
+      {"name": "no special reaction / behave as before", "key": "7"},
+      {"name": "none of the above", "key": "8"}
+    ],
+    "types" : {
+      "1": "locate charging station",
+      "2": "switch off air conditioning",
+      "3": "prepare for next action",
+      "4": "decelerate",
+      "5": "drive at constant speed",
+      "6": "accelerate",
+      "7": "no special reaction / behave as before",
+      "8": "none of the above"
+    },
+    "schedule": [
+      [[1,4,7,8], [2,4,6,8], [2,5,6,8], [3,4,5,8], [3,4,6,8], [2,5,6,8], [2,4,6,8], [2,6,7,8], [3,6,7,8], [2,6,7,8], [3,4,5,8], [4,6,7,8], [2,4,5,8], [1,4,6,8], [3,4,7,8], [2,4,5,8], [2,3,7,8], [1,2,6,8], [3,4,7,8], [1,3,6,8], [1,3,5,8], [2,4,5,8], [1,2,6,8], [1,4,6,8]],
+      [[4,5,6,8],[1,6,7,8],[2,3,5,8],[2,3,7,8],[4,6,7,8],[1,5,6,8],[2,5,6,8],[5,6,7,8],[1,4,6,8],[1,4,6,8],[2,4,7,8],[1,4,5,8],[2,3,5,8],[1,6,7,8],[1,3,6,8],[2,4,5,8],[2,3,4,8],[1,2,7,8],[1,4,6,8],[2,4,6,8],[2,3,4,8],[2,6,7,8],[2,3,5,8],[3,6,7,8],[1,4,6]],
+      [[2,6,7,8],[2,6,7,8],[2,4,7,8],[1,4,7,8],[1,2,3,8],[1,2,7,8],[3,6,7,8],[2,3,5,8],[1,2,7,8],[2,3,4,8],[1,3,7,8],[2,3,5,8],[1,3,6,8],[2,5,7,8],[1,4,6,8],[1,5,6,8],[1,5,7,8],[3,5,7,8],[2,3,4,8],[1,2,3,8],[1,3,6,8],[2,3,6,8],[3,4,5,8],[1,4,5,8],[3,5,7]],
+      [[1,5,7,8],[2,6,7,8],[1,4,7,8],[2,4,7,8],[1,3,4,8],[1,2,7,8],[2,6,7,8],[3,6,7,8],[3,4,6,8],[2,4,7,8],[2,3,7,8],[2,4,7,8],[1,2,6,8],[3,4,7,8],[1,2,4,8],[2,3,5,8],[1,2,7,8],[2,5,7,8],[4,5,6,8],[1,6,7,8],[2,5,6,8],[1,4,6,8],[3,5,7,8],[3,4,7,8],[2,5,7]],
+      [[2,3,6,8],[2,6,7,8],[2,3,4,8],[1,4,5,8],[1,6,7,8],[4,6,7,8],[4,5,7,8],[2,3,6,8],[2,5,7,8],[3,4,6,8],[3,4,6,8],[1,2,5,8],[1,3,7,8],[2,4,5,8],[2,3,6,8],[3,4,5,8],[1,4,5,8],[1,2,6,8],[1,3,5,8],[1,4,5,8],[1,2,5,8],[4,6,7,8],[4,5,6,8],[3,6,7,8],[1,5,6]]
+    ]
+  }
+}

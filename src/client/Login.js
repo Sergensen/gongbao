@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Dropdown, Button, Input, Form, Message, Header } from 'semantic-ui-react';
 import axios from 'axios';
+import config from '../config';
 
 export default class Login extends Component {
   constructor(props) {
@@ -23,14 +24,14 @@ export default class Login extends Component {
   loadProject() {
     const { id, project } = this.state;
     const { setProject } = this.props;
-
+    console.log(config);
     if(id===""||project==="") {
       this.setState({
         id: "",
         project: "",
       });
     } else {
-      axios.get('http://localhost:3001/study/'+id+"/"+project)
+      axios.get('http://'+config.apiUrl+':'+config.port+'/study/'+id+"/"+project)
       .then(function (response) {
         setProject(response.data, id, project);
       })

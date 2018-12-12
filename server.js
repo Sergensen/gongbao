@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
+const config = require('./src/config');
 
 app.use(cors());
 app.use('/static/',express.static("Projects"));
@@ -90,5 +91,5 @@ app.get('/study/:id/:project', function (req, res) {
   });
 });
 
-app.listen(3001);
-console.log("Server on: 3001");
+app.listen(config.port);
+console.log("Server on: " + config.port);

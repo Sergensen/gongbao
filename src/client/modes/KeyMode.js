@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Icon } from 'semantic-ui-react';
+import config from '../../config';
 
 export default class KeyMode extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ export default class KeyMode extends Component {
 
   saveData(userData, save) {
     const { subject, project } = userData[0];
-    axios.get('http://localhost:3001/'+save+'/'+subject+"/"+project+"/"+JSON.stringify(userData))
+    axios.get('http://'+config.apiUrl+':'+config.port+'/'+save+'/'+subject+"/"+project+"/"+JSON.stringify(userData))
     .catch(function (error) {
       console.log(error);
     });
@@ -101,7 +102,7 @@ export default class KeyMode extends Component {
               <img
                 alt="reload"
                 style={styles.image}
-                src={"http://localhost:3001/static/"+project+"/img/"+schedule[i][j]}
+                src={'http://'+config.apiUrl+':'+config.port+'/static/'+project+'/img/'+schedule[i][j]}
               />
             )
           }
