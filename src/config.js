@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: "localhost",
+  apiUrl: "47.101.151.48",
   port: "3001"
 };
 
