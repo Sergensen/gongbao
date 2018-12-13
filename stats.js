@@ -22,7 +22,7 @@ fs.readdir(dir, function(err, items) {
 
       for(let key in schedule) {
         let avg = 0;
-        for(i=key*schedule[key].length; i<(parseInt(key)+1)*schedule[key].length; i++) avg+=results[i].time;
+        for(i=key*schedule[key].length; i<(parseInt(key)+1)*schedule[key].length; i++) if(results[i]) avg+=results[i].time;
         avg/=schedule[key].length;
         console.log(designs[key] + ": " + avg);
       }

@@ -119,6 +119,25 @@ export default class SpaceKeyMode extends Component {
     });
   }
 
+  exportToJson() {
+    const { userData } = this.state;
+    let filename = userData[0].subject+".json";
+    let contentType = "application/json;charset=utf-8;";
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(userData)))], { type: contentType });
+      navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      var a = document.createElement('a');
+      a.download = filename;
+      a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(userData));
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+
   preload() {
     const { project, projectData } = this.props;
     const { schedule, designs } = projectData.config;
@@ -207,7 +226,12 @@ export default class SpaceKeyMode extends Component {
           </div>
         );
       case 4:
-        return <p style={styles.thanks}>Thank you for your participation.</p>;
+        return (
+          <div>
+            <p style={styles.thanks}>Thank you for your participation.</p>
+            <Button color="blue" onClick={this.exportToJson.bind(this)}>Download results!</Button>
+          </div>
+        )
       default:
         return;
     }
