@@ -7,7 +7,9 @@ export default class SpaceKeyMode extends Component {
   constructor(props) {
     super(props);
     const { id, project, projectData } = this.props;
-    this.time = 0;
+    this.time=0;
+    this.ready=0;
+    this.choose=0;
     this.state={
       situations: [],
       designs: projectData.config.designs,
@@ -20,9 +22,7 @@ export default class SpaceKeyMode extends Component {
           subject: id,
           project
         }
-      ],
-      ready: 0,
-      choose: 0
+      ]
     }
   }
 
@@ -58,6 +58,7 @@ export default class SpaceKeyMode extends Component {
       case 0:
         if(KEYPRESSED===" ") {
           this.time=performance.now();
+          this.ready=performance.now()-this.ready;
           this.setState({
             state: 1
           });
@@ -66,6 +67,7 @@ export default class SpaceKeyMode extends Component {
       case 1:
         if(KEYPRESSED===" ") {
           this.time=performance.now()-this.time;
+          this.choose=performance.now();
           this.setState({
             state: 2
           });
@@ -80,7 +82,9 @@ export default class SpaceKeyMode extends Component {
           userData.push({
             time: this.time,
             clicked: KEYPRESSED,
-            situation: situations[designs[design]][show].url
+            situation: situations[designs[design]][show].url,
+            choose: performance.now()-this.choose,
+            ready: this.ready
           });
 
           const nextShow = show<situations[designs[design]].length-1?show+1:0;
@@ -95,12 +99,14 @@ export default class SpaceKeyMode extends Component {
             state: nextState
           });
 
+          if(nextState===0) this.ready=performance.now();
           if(nextState>2) this.saveData(userData, "temp");
           if(nextState===4) this.saveData(userData, "save");
         }
         break;
       case 3:
         if(KEYPRESSED==="Enter") {
+          this.ready=performance.now();
           this.setState({
             state: 0
           });
@@ -229,7 +235,7 @@ export default class SpaceKeyMode extends Component {
         return (
           <div>
             <p style={styles.thanks}>Thank you for your participation.</p>
-            <Button color="blue" onClick={this.exportToJson.bind(this)}>Download results!</Button>
+            {this.exportToJson()}
           </div>
         )
       default:
