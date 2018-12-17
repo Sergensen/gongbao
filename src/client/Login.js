@@ -24,7 +24,6 @@ export default class Login extends Component {
   loadProject() {
     const { id, project } = this.state;
     const { setProject } = this.props;
-    console.log(config);
     if(id===""||project==="") {
       this.setState({
         id: "",

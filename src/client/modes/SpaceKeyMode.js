@@ -177,7 +177,6 @@ export default class SpaceKeyMode extends Component {
     for(let i in types) {
       let style = styles.button;
       for(let j in schedule[design][show]) if(parseInt(i)===schedule[design][show][j]) style = styles.activeButton;
-      for(let j in schedule[design][show]) console.log(i, schedule[design][show][j]);
       buttons.push(
         <Button style={{...style, backgroundColor}} key={Math.random()}>
           {i+": "+types[i]}
